@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Cross.Web.Models.Users.IndexViewModel>
+
+    <h3 align="center">Пользователи</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserRoles)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OtherRoles)
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)<br />
+                    <a class="btn btn-sm btn-outline-secondary" asp-action="Details" asp-route-userId="@item.Id">Подробнее</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @foreach (var role in item.UserRoles)
+                    {
+                        <span>@role&nbsp; &nbsp;</span><br />
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="DeleteRole" asp-route-id="@item.Id" asp-route-role="@role">Удалить</a><br />
+                        <br />
+                    }
+                </td>
+                <td>
+                    @foreach (var role in item.OtherRoles)
+                    {
+                        <span>@role&nbsp; &nbsp;</span><br />
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="EditRole" asp-route-id="@item.Id" asp-route-role="@role">Добавить</a><br />
+                        <br />
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-outline-secondary" asp-controller="Accounts" asp-action="Delete" asp-route-id="@item.Id">Удалить пользователя</a><br />
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div align="center">
+        <p>
+            <a class="btn btn-lg btn-outline-secondary" asp-controller="Accounts" asp-action="Register">Зарегистрировать</a>
+        </p>
+    </div>

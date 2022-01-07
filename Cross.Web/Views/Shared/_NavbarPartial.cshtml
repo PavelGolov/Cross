@@ -1,0 +1,18 @@
+﻿
+
+
+<div class="col-4 d-flex justify-content-start align-items-center">
+    <a class="link-secondary" href="/">Главная</a> &nbsp; &nbsp;
+    @if (User.IsInRole(Roles.EventManager) || User.IsInRole(Roles.Organizer))
+    {
+        <a class="link-secondary" asp-controller="Events" asp-action="Index">Мероприятия</a><span> &nbsp; &nbsp;</span>
+    }
+    @if (User.IsInRole(Roles.Administrator))
+    {
+        <a class="link-secondary" asp-controller="Users" asp-action="Index">Пользователи</a><span> &nbsp; &nbsp;</span>
+    }
+    @if (User.Identity.IsAuthenticated)
+    {
+    <a class="link-secondary" asp-controller="Requests" asp-action="Index">Заявки</a><span> &nbsp; &nbsp;</span>
+    }
+</div>

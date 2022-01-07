@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Cross.Web.Models.Cars.DetailsViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">@Html.DisplayNameFor(model => model.LicensePlate)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Discipline)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.RaceType)</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.LicensePlate</td>
+            <td>@item.Discipline</td>
+            <td>@item.RaceType</td>
+            <td><a class="blog-header-logo text-black-50" asp-controller="Cars" asp-action="Edit" asp-route-id="@item.Id">Изменить</a></td>
+            <td><a class="blog-header-logo text-black-50" asp-controller="Cars" asp-action="Delete" asp-route-id="@item.Id">Удалить</a></td>
+        </tr>
+        }
+    </tbody>
+</table>

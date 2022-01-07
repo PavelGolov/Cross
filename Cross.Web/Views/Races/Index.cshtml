@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Cross.Web.Models.Races.IndexViewModel>
+
+<h3 align="center">Заезды</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discipline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Track)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @if (item.IsCancelled)
+                {
+                    <strike>
+                        @Html.DisplayFor(modelItem => item.DateTime)
+                    </strike>
+                }
+                else
+                {
+                    <span>
+                        @Html.DisplayFor(modelItem => item.DateTime)
+                    </span>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RaceStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discipline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Track)
+            </td>
+            <td>
+                <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@item.Id">Изменить</a>
+                <a class="btn btn-sm btn-outline-secondary" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                <a class="btn btn-sm btn-outline-secondary" asp-action="Cancel" asp-route-eventId="@item.EventId" asp-route-raceId="@item.Id">
+                    @if (item.IsCancelled)
+                    {
+                        <span>Сделать активным</span>
+                    }
+                    else
+                    {
+                        <span>Отменить</span>
+                    }
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div align="center">
+    <p>
+        <a class="btn btn-lg btn-outline-secondary" asp-action="Create" asp-route-eventId="@ViewBag.EventId">Создать заезд</a>
+    </p>
+</div>

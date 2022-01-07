@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Cross.Web.Models.Requests.IndexViewModel>
+
+<h3 align="center">Заявки</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Venue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discipline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Track)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LicensePlate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modifed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actions)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                <span>
+                    @Html.DisplayFor(modelItem => item.DateTime)
+                </span>
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.RaceType)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Venue)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.RaceStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Discipline)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Track)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.User)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.LicensePlate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Modifed)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Comment)
+            </td>
+            <td>
+                @foreach (var action in item.Actions)
+                {
+                    <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-requestId="@item.RequestId" asp-route-actionId="@action.Key">@action.Value</a><br />
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

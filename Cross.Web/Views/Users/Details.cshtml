@@ -1,0 +1,44 @@
+﻿@model Cross.Web.Models.Users.DetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="row">
+    <div align="center">
+        <h3>@Model.FirstName @Model.LastName</h3>
+        <div class="col-lg-4 row">
+            <a class="blog-header-logo text-black-50" href ="">Удалить аккаунт</a>
+            <br />
+            <p><a class="blog-header-logo text-black-50" href ="">Изменить пароль</a></p>
+            <p><strong>Email: </strong>@Model.Email</p>
+            <p><a class="blog-header-logo text-black-50" href ="">Изменить контактную информацию</a></p>
+            <h4>Автомобили</h4>
+        </div>
+        <div class="col-md-4 mx-auto">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">@Html.DisplayNameFor(model => model.Cars.FirstOrDefault().LicensePlate)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.Cars.FirstOrDefault().Discipline)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.Cars.FirstOrDefault().RaceType)</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Cars)
+                    {
+                    <tr>
+                        <td>@item.LicensePlate</td>
+                        <td>@item.Discipline</td>
+                        <td>@item.RaceType</td>
+                        <td><a class="btn btn-sm btn-outline-secondary" asp-controller="Cars" asp-action="Edit" asp-route-carId="@item.Id">Изменить</a></td>
+                        <td><a class="btn btn-sm btn-outline-secondary" asp-controller="Cars" asp-action="Delete" asp-route-carId="@item.Id" asp-route-userId="@Model.Id">Удалить</a></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            <a class="btn btn-lg btn-outline-secondary" asp-controller="Cars" asp-action="Create" asp-route-userId="@Model.Id">Добавить автомобиль</a>
+        </div>
+    </div>
+</div>

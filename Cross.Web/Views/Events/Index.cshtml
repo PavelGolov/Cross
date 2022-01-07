@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Cross.Web.Models.Events.IndexViewModel>
+
+    <h3 align="center">Мероприятия</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Venue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RaceType)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (item.IsCancelled)
+                        {
+                            <strike>
+                                @Html.DisplayFor(modelItem => item.DateStart) - @Html.DisplayFor(modelItem => item.DateEnd)
+                            </strike>
+                        }
+                        else
+                        {
+                            <span>
+                                @Html.DisplayFor(modelItem => item.DateStart) - @Html.DisplayFor(modelItem => item.DateEnd)
+                            </span>
+                        }
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Venue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RaceType)
+                    </td>
+                    <td>
+                        @if (User.IsInRole(Roles.EventManager))
+                        {
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@item.Id">Изменить</a>
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="Cancel" asp-route-id="@item.Id">
+                            @if (item.IsCancelled)
+                            {
+                                <span>Сделать активным</span>
+                            }
+                            else
+                            {
+                                <span>Отменить</span>
+                            }
+                        </a>
+                        }
+                        <a class="btn btn-sm btn-outline-secondary" asp-controller="Races" asp-action="Index" asp-route-eventId="@item.Id">Посмотреть заезды</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+@if (User.IsInRole(Roles.EventManager))
+{
+    <div align="center">
+        <p>
+            <a class="btn btn-lg btn-outline-secondary" asp-action="Edit">Создать мероприятие</a>
+        </p>
+    </div>
+}

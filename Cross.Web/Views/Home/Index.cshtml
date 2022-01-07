@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Cross.Web.Models.Home.IndexViewModel>
+
+    <h3 align ="center">Календарь соревнований</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Venue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discipline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Track)
+            </th>
+            @if (User.IsInRole(Roles.Administrator))
+            {
+                <th>
+                </th>
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.Actions)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @if (item.IsCancelled)
+                {
+                    <strike>
+                        @Html.DisplayFor(modelItem => item.DateTime)
+                    </strike>
+                }
+                else
+                {
+                    <span>
+                        @Html.DisplayFor(modelItem => item.DateTime)
+                    </span>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.RaceType)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Venue)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.RaceStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Discipline)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Track)
+            </td>
+            @if (User.IsInRole(Roles.Administrator))
+            {
+                <td>
+                    <a class="btn btn-sm btn-outline-secondary" asp-controller="Requests" asp-action="Details" asp-route-raceId="@item.raceId">Просмотреть список желающих</a>
+                </td>
+            }
+        <td>
+            @foreach (var action in item.Actions)
+            {
+                <a class="btn btn-sm btn-outline-secondary" asp-controller="Cars" asp-action="ChooseСar" asp-route-raceId="@item.raceId" asp-route-actionId="@action.Key">@action.Value</a><br />
+            }
+        </td>
+        </tr>
+        }
+    </tbody>
+</table>
